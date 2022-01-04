@@ -10,9 +10,9 @@
 class Cpu
 {
 private:
-	Memory *ram;
-	Display *display;
-	Audio *audio;
+	Memory *const ram;
+	Display *const display;
+	Audio *const audio;
 	std::stack<uint16_t> stack{};
 	std::array<bool, 16> &keysPressed;
 

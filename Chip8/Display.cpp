@@ -34,7 +34,7 @@ void Display::Clear()
 	screen.fill(0);
 }
 
-void Display::UpdatePixels()
+void Display::UpdatePixels() const
 {
 	auto pixel = (uint32_t*)&pixels;
 

@@ -32,6 +32,5 @@ public:
 	{
 		sound.stop();
 	}
-
 };
 

@@ -11,10 +11,10 @@
 class Machine
 {
 private:
-	Cpu *cpu;
-	Memory *ram;
-	Display *display;
-	Audio *audio;
+	std::unique_ptr<Cpu> cpu;
+	std::unique_ptr<Memory> ram;
+	std::unique_ptr<Display> display;
+	std::unique_ptr<Audio> audio;
 
 	std::string romName;
 
@@ -41,12 +41,12 @@ private:
 public:
 	std::array<bool, 16> keysPressed{};
 
-	Machine(std::string rom)
+	Machine(const std::string &rom)
 	{
-		ram = new Memory;
-		display = new Display(ram);
-		audio = new Audio;
-		cpu = new Cpu(display, ram, audio, keysPressed);
+		ram = std::make_unique<Memory>();
+		display = std::make_unique<Display>(ram.get());
+		audio = std::make_unique<Audio>();
+		cpu = std::make_unique<Cpu>(display.get(), ram.get(), audio.get(), keysPressed);
 
 		romName = rom;
 	}
