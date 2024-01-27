@@ -2,13 +2,13 @@
 
 void Cpu::Decode()
 {
-	auto opcode = ram->ram[pc];
-	auto param = opcode & 0xf;
-	auto data = ram->ram[pc + 1];
+	const auto opcode = ram->ram[pc];
+	const auto param = opcode & 0xf;
+	const auto data = ram->ram[pc + 1];
 
 	// Helpers for when using Vx and Vy to make them easier to read
-	auto x = (uint8_t)param;
-	auto y = (uint8_t)((data >> 4) & 0xf);
+	const auto x = (uint8_t)param;
+	const auto y = (uint8_t)((data >> 4) & 0xf);
 
 	pc += 2;
 
@@ -32,14 +32,14 @@ void Cpu::Decode()
 		break;
 
 	case 0x1:     // JP nnn
-		pc = (uint16_t)((param * 256) + data);
+		pc = (uint16_t)((param << 8) | data);
 		break;
 
 	case 0x2:     // CALL nnn
 		if (stack.size() < 15)
 		{
 			stack.push(pc);
-			pc = (uint16_t)((param * 256) + data);
+			pc = (uint16_t)((param << 8) | data);
 		}
 		break;
 
@@ -129,11 +129,11 @@ void Cpu::Decode()
 		break;
 
 	case 0xa:    // LD I, nnn
-		i = (uint16_t)((param * 256) + data);
+		i = (uint16_t)((param << 8) | data);
 		break;
 
 	case 0xb:    // JP V0, nnn
-		pc = (uint16_t)((param * 256) + data + v[0]);
+		pc = (uint16_t)((param << 8) | (data + v[0]));
 		break;
 
 	case 0xc:    // RND Vx, byte

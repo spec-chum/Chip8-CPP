@@ -1,7 +1,7 @@
 #include <cstdint>
 #include "Display.h"
 
-uint8_t Display::DrawSprite(uint32_t x, uint32_t y, uint32_t height, uint16_t dataAddr)
+uint8_t Display::DrawSprite(const uint32_t x, const uint32_t y, const uint32_t height, const uint16_t dataAddr)
 {
 	uint8_t collision = 0;
 
@@ -11,7 +11,7 @@ uint8_t Display::DrawSprite(uint32_t x, uint32_t y, uint32_t height, uint16_t da
 
 		for (uint32_t dx = 0; dx < 8; dx++)
 		{
-			auto pos = ((y + dy) * 64) + (x + dx);
+			const auto pos = ((y + dy) * 64) + (x + dx);
 			if ((bits & 128) != 0)
 			{
 				if (screen[pos] == 1 && collision == 0)

@@ -27,14 +27,7 @@ void Machine::Run()
 
 		for (size_t i = 0; i < 16; i++)
 		{
-			if (sf::Keyboard::isKeyPressed(keys[i]))
-			{
-				keysPressed[i] = true;
-			}
-			else
-			{
-				keysPressed[i] = false;
-			}
+			keysPressed[i] = sf::Keyboard::isKeyPressed(keys[i]);
 		}
 
 		for (size_t i = 0; i < 1000 / 60; i++)
